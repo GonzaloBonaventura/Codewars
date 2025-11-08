@@ -1,0 +1,29 @@
+function duplicateEncode(word){
+    // -tolower , for contains? 
+    let input = word.toLowerCase();
+    let output = "";
+  
+    for (let i = word.length - 1; i >= 0; i--) {
+      let exlusive = input.slice(0, i) + input.slice(i+1);
+      if(exlusive.includes(input[i])){
+        output = ")" + output; 
+      }else{
+        output = "(" + output; 
+      }
+    }
+    //starts at the end of the string and checks with a sliced version without the original character
+    return output;
+}
+//test
+const chai = require("chai");
+const assert = chai.assert;
+chai.config.truncateThreshold=0;
+
+describe("Duplicate Encoder", () => {
+  it("Testing for fixed tests", () => {
+    assert.strictEqual(duplicateEncode("din"),"(((");
+    assert.strictEqual(duplicateEncode("recede"),"()()()");
+    assert.strictEqual(duplicateEncode("Success"),")())())","should ignore case");
+    assert.strictEqual(duplicateEncode("(( @"),"))((");
+  });
+});
